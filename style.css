@@ -1,0 +1,120 @@
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  color:#4b3650;
+  font-family:"Segoe UI",system-ui,sans-serif;
+  background:linear-gradient(135deg,#ffd9ec 0%,#ded2ff 35%,#c9efff 68%,#ffe9c7 100%);
+  background-size:300% 300%;
+  animation:sky 14s ease infinite;
+}
+@keyframes sky{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+main{position:relative;z-index:2}
+section{
+  min-height:100svh;
+  padding:70px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.hero{flex-direction:column}
+.eyebrow{letter-spacing:2px;font-size:16px;opacity:.8}
+.hero h1{
+  margin:14px 0 8px;
+  font-size:clamp(48px,13vw,82px);
+  line-height:1;
+  background:linear-gradient(90deg,#ff5fa2,#8d73ff,#45acd8);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero h2{font-size:clamp(21px,5vw,30px);font-weight:500}
+.lead{max-width:620px;margin:24px auto;line-height:1.8;font-size:18px}
+.butterfly-main,.emoji{font-size:78px;animation:bob 2.5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px) rotate(3deg)}}
+.glass{
+  width:min(760px,94vw);
+  padding:34px 25px;
+  border:1px solid rgba(255,255,255,.7);
+  border-radius:32px;
+  background:rgba(255,255,255,.38);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 20px 70px rgba(82,52,110,.15);
+}
+.glass.wide{width:min(1050px,95vw)}
+.glass h2{font-size:clamp(28px,7vw,38px);margin:12px 0 22px}
+.glass p{font-size:17px;line-height:1.85}
+.primary,.music-btn,.gift{
+  border:0;
+  color:#fff;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ff6fae,#8d76ef);
+  box-shadow:0 12px 30px rgba(112,73,151,.22);
+  transition:.25s;
+}
+.primary{padding:15px 27px;border-radius:999px;font-size:16px}
+.primary:hover{transform:translateY(-3px) scale(1.03)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px}
+.mini-card{
+  padding:24px 16px;
+  border-radius:24px;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(255,255,255,.7);
+  transition:.3s;
+}
+.mini-card:hover{transform:translateY(-8px)}
+.mini-card>div{font-size:48px;margin-bottom:12px}
+.mini-card h3{margin-bottom:9px;font-size:20px}
+.mini-card p{font-size:15px;line-height:1.6}
+.gift{
+  display:block;
+  margin:25px auto 0;
+  padding:18px;
+  border-radius:28px;
+  font-size:82px;
+  background:rgba(255,255,255,.35);
+  box-shadow:none;
+  animation:gift 1.5s ease-in-out infinite;
+}
+@keyframes gift{50%{transform:translateY(-10px) rotate(2deg)}}
+.secret{display:none;margin-top:25px}
+.secret.show{display:block;animation:appear .7s ease}
+@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+.music-btn{
+  position:fixed;
+  right:14px;
+  bottom:14px;
+  z-index:20;
+  padding:11px 17px;
+  border-radius:999px;
+  font-size:14px;
+}
+.ending h1{font-size:clamp(42px,10vw,70px);margin:14px 0 25px}
+.ending p{max-width:650px;font-size:19px;line-height:1.9}
+.final-emojis{font-size:27px;margin-top:28px}
+.star{position:fixed;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff;z-index:1;animation:twinkle 2s ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.25;transform:scale(.5)}}
+.butterfly{position:fixed;z-index:1;pointer-events:none;font-size:27px;animation:fly 14s linear infinite}
+@keyframes fly{
+  0%{transform:translate(-10vw,110vh) rotate(0)}
+  25%{transform:translate(25vw,70vh) rotate(12deg)}
+  50%{transform:translate(65vw,45vh) rotate(-10deg)}
+  75%{transform:translate(30vw,15vh) rotate(10deg)}
+  100%{transform:translate(110vw,-10vh) rotate(-10deg)}
+}
+.petal{position:fixed;top:-30px;z-index:1;pointer-events:none;font-size:18px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.heart{position:fixed;bottom:-30px;z-index:30;pointer-events:none;font-size:23px;animation:heart 4s linear forwards}
+@keyframes heart{to{transform:translateY(-110vh) scale(1.5);opacity:0}}
+@media(max-width:700px){
+  .cards{grid-template-columns:1fr 1fr}
+  .glass{padding:30px 19px}
+}
+@media(max-width:430px){
+  .cards{grid-template-columns:1fr}
+  .hero h1{font-size:52px}
+  .glass p{font-size:16px}
+}
