@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For You 🦋</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family: "Segoe UI", sans-serif;
+    color:#4b3b4f;
+    overflow-x:hidden;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.8), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(255,220,240,.7), transparent 30%),
+        linear-gradient(135deg,#ffd9ec,#ddd5ff,#c9efff,#ffe8c7);
+
+    background-size:200% 200%;
+    animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* ---------- STARS ---------- */
+
+.star{
+    position:fixed;
+    width:4px;
+    height:4px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 10px white;
+    animation:twinkle 2s infinite alternate;
+    z-index:0;
+}
+
+@keyframes twinkle{
+    from{opacity:.2; transform:scale(.6)}
+    to{opacity:1; transform:scale(1.5)}
+}
+
+/* ---------- BUTTERFLIES ---------- */
+
+.butterfly{
+    position:fixed;
+    font-size:28px;
+    z-index:2;
+    pointer-events:none;
+    animation:fly 15s linear infinite;
+}
+
+@keyframes fly{
+    0%{
+        transform:translate(-10vw,110vh) rotate(0deg);
+    }
+    25%{
+        transform:translate(25vw,70vh) rotate(12deg);
+    }
+    50%{
+        transform:translate(60vw,45vh) rotate(-12deg);
+    }
+    75%{
+        transform:translate(30vw,15vh) rotate(10deg);
+    }
+    100%{
+        transform:translate(110vw,-10vh) rotate(-10deg);
+    }
+}
+
+/* ---------- PETALS ---------- */
+
+.petal{
+    position:fixed;
+    top:-30px;
+    font-size:18px;
+    animation:fall linear infinite;
+    z-index:1;
+    pointer-events:none;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+    }
+}
+
+/* ---------- SECTIONS ---------- */
+
+section{
+    min-height:100vh;
+    padding:80px 20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    position:relative;
+    z-index:3;
+}
+
+/* ---------- HERO ---------- */
+
+.hero{
+    text-align:center;
+}
+
+.small{
+    font-size:18px;
+    letter-spacing:2px;
+    opacity:.8;
+}
+
+.hero h1{
+    font-size:clamp(42px,10vw,80px);
+    margin:20px 0 10px;
+
+    background:linear-gradient(90deg,#ff6fae,#9d7cff,#5ebce8);
+    -webkit-background-clip:text;
+    color:transparent;
+
+    animation:titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow{
+    from{filter:drop-shadow(0 0 5px rgba(255,100,170,.2))}
+    to{filter:drop-shadow(0 0 18px rgba(255,100,170,.45))}
+}
+
+.hero h2{
+    font-weight:400;
+    font-size:22px;
+}
+
+.hero p{
+    max-width:650px;
+    margin:25px auto;
+    font-size:18px;
+    line-height:1.8;
+}
+
+/* ---------- BUTTON ---------- */
+
+button{
+    border:none;
+    padding:15px 30px;
+    border-radius:40px;
+    font-size:16px;
+    cursor:pointer;
+
+    color:white;
+
+    background:linear-gradient(135deg,#ff75ad,#9c7bff);
+
+    box-shadow:
+        0 10px 30px rgba(130,90,180,.25);
+
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-4px) scale(1.04);
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+/* ---------- GLASS CARD ---------- */
+
+.card{
+    width:min(850px,92%);
+    padding:35px;
+    margin:20px 0;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.35);
+    border:1px solid rgba(255,255,255,.65);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 20px 60px rgba(100,70,130,.15);
+
+    text-align:center;
+
+    animation:cardFloat 5s ease-in-out infinite;
+}
+
+@keyframes cardFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-8px)}
+}
+
+.card h2{
+    font-size:32px;
+    margin-bottom:20px;
+}
+
+.card p{
+    font-size:18px;
+    line-height:1.9;
+}
+
+/* ---------- EMOJI ---------- */
+
+.bigEmoji{
+    font-size:80px;
+    margin-bottom:20px;
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+/* ---------- CARDS ---------- */
+
+.cards{
+    width:min(1100px,95%);
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:22px;
+    margin-top:30px;
+}
+
+.memory{
+    padding:30px 20px;
+    border-radius:25px;
+
+    background:rgba(255,255,255,.38);
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.7);
+
+    transition:.4s;
+
+    text-align:center;
+}
+
+.memory:hover{
+    transform:translateY(-10px) rotate(1deg);
+    box-shadow:0 20px 40px rgba(100,70,130,.2);
+}
+
+.memory .emoji{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.memory h3{
+    margin-bottom:10px;
+    font-size:21px;
+}
+
+.memory p{
+    line-height:1.6;
+}
+
+/* ---------- HIDDEN MESSAGE ---------- */
+
+.hidden{
+    display:none;
+}
+
+#secretMessage{
+    margin-top:25px;
+    animation:appear .8s ease;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+/* ---------- GIFT ---------- */
+
+.gift{
+    font-size:100px;
+    cursor:pointer;
+    animation:giftBounce 1.5s infinite;
+    filter:drop-shadow(0 15px 20px rgba(100,50,100,.2));
+}
+
+@keyframes giftBounce{
+    0%,100%{transform:translateY(0) rotate(-2deg)}
+    50%{transform:translateY(-15px) rotate(2deg)}
+}
+
+.gift:hover{
+    transform:scale(1.1);
+}
+
+/* ---------- MUSIC ---------- */
+
+.musicBox{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:20;
+
+    padding:12px 16px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.55);
+    backdrop-filter:blur(15px);
+
+    box-shadow:0 8px 30px rgba(70,50,100,.15);
+}
+
+.musicBox button{
+    padding:10px 18px;
+    font-size:14px;
+}
+
+/* ---------- END ---------- */
+
+.end{
+    text-align:center;
+}
+
+.end h1{
+    font-size:clamp(38px,8vw,65px);
+    margin-bottom:25px;
+}
+
+.end p{
+    max-width:650px;
+    font-size:20px;
+    line-height:2;
+}
+
+/* ---------- HEARTS ---------- */
+
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:22px;
+    animation:heartFloat 5s linear forwards;
+    pointer-events:none;
+    z-index:15;
+}
+
+@keyframes heartFloat{
+    from{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+    to{
+        opacity:0;
+        transform:translateY(-100vh) scale(1.8);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:600px){
+
+    section{
+        padding:70px 15px;
+    }
+
+    .hero h1{
+        font-size:48px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .card{
+        padding:25px 20px;
+    }
+
+    .card h2{
+        font-size:27px;
+    }
+
+    .card p{
+        font-size:16px;
+    }
+
+    .musicBox{
+        bottom:12px;
+        right:12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+
+<audio id="music" loop>
+    <source src="Haareya_Song___Meri_Pyaari_Bindu.mp3" type="audio/mpeg">
+</audio>
+
+<div class="musicBox">
+    <button onclick="toggleMusic()" id="musicBtn">
+        🎵 Music
+    </button>
+</div>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="bigEmoji">🦋</div>
+
+    <div class="small">
+        I made something for you...
+    </div>
+
+    <h1>Hey, You 🤍</h1>
+
+    <h2>I know you're mad at me.</h2>
+
+    <p>
+        So instead of sending another long paragraph,
+        I thought I'd make you something.
+    </p>
+
+    <button onclick="startExperience()">
+        Okay... show me 🥺
+    </button>
+
+</section>
+
+
+<!-- APOLOGY -->
+
+<section>
+
+    <div class="card">
+
+        <div class="bigEmoji">🥺</div>
+
+        <h2>I'm Sorry.</h2>
+
+        <p>
+            Not the "sorry, but..." kind.
+            <br><br>
+
+            Just <b>sorry.</b>
+            <br><br>
+
+            I know I messed up, and I know saying sorry
+            doesn't instantly make everything okay.
+            <br><br>
+
+            I wish I had handled things differently.
+            <br><br>
+
+            You didn't deserve to be hurt because of my frustration.
+            <br><br>
+
+            I genuinely am sorry. 🤍
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- LITTLE THINGS -->
+
+<section>
+
+    <div class="card">
+
+        <div class="bigEmoji">🌸</div>
+
+        <h2>A Few Things I Want You To Know</h2>
+
+        <div class="cards">
+
+            <div class="memory">
+                <div class="emoji">🥺</div>
+
+                <h3>I Know</h3>
+
+                <p>
+                    You're upset, and I understand why.
+                    I'm not going to pretend everything is suddenly okay.
+                </p>
+            </div>
+
+
+            <div class="memory">
+                <div class="emoji">🫂</div>
+
+                <h3>I'm Sorry</h3>
+
+                <p>
+                    I really mean it.
+                    I should have handled things better.
+                </p>
+            </div>
+
+
+            <div class="memory">
+                <div class="emoji">🌷</div>
+
+                <h3>You Matter</h3>
+
+                <p>
+                    Maybe more than I have ever properly managed to say.
+                </p>
+            </div>
+
+
+            <div class="memory">
+                <div class="emoji">🦋</div>
+
+                <h3>No Pressure</h3>
+
+                <p>
+                    You don't have to forgive me immediately.
+                    Take your time.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MORE THAN FRIENDS -->
+
+<section>
+
+    <div class="card">
+
+        <div class="bigEmoji">💗</div>
+
+        <h2>There's Something Else...</h2>
+
+        <p>
+
+            I don't know exactly when it happened.
+
+            <br><br>
+
+            Somewhere between the random conversations,
+            laughs, little moments and everything in between...
+
+            <br><br>
+
+            <b>you became special to me.</b>
+
+            <br><br>
+
+            Maybe you're more than just a friend to me.
+
+            <br><br>
+
+            Maybe I'm not ready to give that feeling
+            a proper name.
+
+            <br><br>
+
+            Maybe it doesn't need a name yet.
+
+            <br><br>
+
+            I just know...
+
+            <br>
+
+            <b>I care about you. 🤍</b>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- SECRET -->
+
+<section>
+
+    <div class="card">
+
+        <div class="bigEmoji">🎁</div>
+
+        <h2>One Little Surprise</h2>
+
+        <p>
+            There's something hidden inside.
+        </p>
+
+        <br>
+
+        <div class="gift" onclick="openGift()">
+            🎁
+        </div>
+
+        <div id="secretMessage" class="hidden">
+
+            <p>
+
+                I can't undo what happened.
+
+                <br><br>
+
+                But I can learn from it.
+
+                <br><br>
+
+                And if I ever get another chance,
+                I'll try to handle things better.
+
+                <br><br>
+
+                <b>
+                    You deserve that.
+                </b>
+
+                🤍
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL -->
+
+<section class="end">
+
+    <div class="bigEmoji">🦋</div>
+
+    <h1>One Last Thing...</h1>
+
+    <p>
+
+        You don't have to forgive me right now.
+
+        <br><br>
+
+        You don't have to reply immediately.
+
+        <br><br>
+
+        Take your time.
+
+        <br><br>
+
+        I just hope that whenever you're ready,
+        we can smile again.
+
+        <br><br>
+
+        Because despite everything...
+
+        <br><br>
+
+        <b>
+            I'm really glad I met you.
+        </b>
+
+        🤍
+
+        <br><br>
+
+        <span style="font-size:28px;">
+            🦋 ✨ 🌸 🫶 ✨ 🦋
+        </span>
+
+    </p>
+
+</section>
+
+
+<script>
+
+/* ---------- STARS ---------- */
+
+for(let i=0;i<60;i++){
+
+    const star=document.createElement("div");
+
+    star.className="star";
+
+    star.style.left=Math.random()*100+"vw";
+    star.style.top=Math.random()*100+"vh";
+
+    star.style.animationDelay=Math.random()*3+"s";
+
+    document.body.appendChild(star);
+}
+
+
+/* ---------- BUTTERFLIES ---------- */
+
+const butterflies=["🦋","🦋","🦋","✨"];
+
+for(let i=0;i<8;i++){
+
+    const b=document.createElement("div");
+
+    b.className="butterfly";
+
+    b.innerHTML=butterflies[
+        Math.floor(Math.random()*butterflies.length)
+    ];
+
+    b.style.left=Math.random()*100+"vw";
+
+    b.style.animationDuration=(12+Math.random()*10)+"s";
+
+    b.style.animationDelay=(-Math.random()*15)+"s";
+
+    b.style.fontSize=(20+Math.random()*20)+"px";
+
+    document.body.appendChild(b);
+}
+
+
+/* ---------- PETALS ---------- */
+
+const petals=["🌸","🌷","✨","🌼"];
+
+setInterval(()=>{
+
+    const petal=document.createElement("div");
+
+    petal.className="petal";
+
+    petal.innerHTML=petals[
+        Math.floor(Math.random()*petals.length)
+    ];
+
+    petal.style.left=Math.random()*100+"vw";
+
+    petal.style.animationDuration=(5+Math.random()*5)+"s";
+
+    document.body.appendChild(petal);
+
+    setTimeout(()=>{
+        petal.remove();
+    },10000);
+
+},700);
+
+
+/* ---------- MUSIC ---------- */
+
+const music=document.getElementById("music");
+const musicBtn=document.getElementById("musicBtn");
+
+function startExperience(){
+
+    music.play().catch(()=>{});
+
+    document.querySelectorAll("section")[1]
+        .scrollIntoView({behavior:"smooth"});
+
+    createHearts();
+}
+
+
+function toggleMusic(){
+
+    if(music.paused){
+
+        music.play();
+
+        musicBtn.innerHTML="🔊 Music";
+
+    }else{
+
+        music.pause();
+
+        musicBtn.innerHTML="🔇 Music";
+
+    }
+
+}
+
+
+/* ---------- GIFT ---------- */
+
+function openGift(){
+
+    const message=document.getElementById("secretMessage");
+
+    message.classList.remove("hidden");
+
+    createHearts();
+
+    confetti();
+
+}
+
+
+/* ---------- HEARTS ---------- */
+
+function createHearts(){
+
+    for(let i=0;i<15;i++){
+
+        setTimeout(()=>{
+
+            const heart=document.createElement("div");
+
+            heart.className="heart";
+
+            const hearts=[
+                "💗",
+                "🤍",
+                "💖",
+                "🦋",
+                "✨"
+            ];
+
+            heart.innerHTML=
+                hearts[Math.floor(Math.random()*hearts.length)];
+
+            heart.style.left=Math.random()*100+"vw";
+
+            heart.style.animationDuration=
+                (3+Math.random()*3)+"s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(()=>{
+                heart.remove();
+            },6000);
+
+        },i*100);
+
+    }
+
+}
+
+
+/* ---------- CONFETTI ---------- */
+
+function confetti(){
+
+    const pieces=[
+        "💖","✨","🌸","🦋","🤍","💗","⭐"
+    ];
+
+    for(let i=0;i<40;i++){
+
+        setTimeout(()=>{
+
+            const c=document.createElement("div");
+
+            c.style.position="fixed";
+            c.style.left=Math.random()*100+"vw";
+            c.style.top="-30px";
+            c.style.fontSize=(15+Math.random()*20)+"px";
+            c.style.zIndex="100";
+            c.innerHTML=
+                pieces[Math.floor(Math.random()*pieces.length)];
+
+            document.body.appendChild(c);
+
+            const duration=2000+Math.random()*2500;
+
+            c.animate(
+                [
+                    {
+                        transform:"translateY(0) rotate(0deg)",
+                        opacity:1
+                    },
+                    {
+                        transform:
+                        `translateY(110vh) rotate(${Math.random()*720}deg)`,
+                        opacity:0
+                    }
+                ],
+                {
+                    duration:duration,
+                    easing:"ease-out"
+                }
+            );
+
+            setTimeout(()=>{
+                c.remove();
+            },duration);
+
+        },i*40);
+
+    }
+
+}
+
+</script>
+
+</body>
+  </html>
