@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffd8ec">
+<title>For You 🦋</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  color:#513b55;
+  font-family:"Segoe UI",Arial,sans-serif;
+  background:linear-gradient(135deg,#ffd7eb,#dcd2ff,#c9efff,#ffe7c7);
+  background-size:300% 300%;
+  animation:bg 14s ease infinite;
+}
+@keyframes bg{
+  0%{background-position:0 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0 50%}
+}
+#decor{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+main{position:relative;z-index:2}
+section{
+  min-height:100svh;
+  padding:70px 18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.hero{padding-top:50px}
+.eyebrow{font-size:15px;letter-spacing:2px;opacity:.78}
+.hero h1{
+  margin:16px 0 10px;
+  font-size:clamp(50px,14vw,88px);
+  line-height:1;
+  background:linear-gradient(90deg,#ff5e9f,#8d71ee,#4bb6dc);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero h2{font-size:clamp(20px,5vw,30px);font-weight:500}
+.lead{max-width:650px;margin:24px auto;line-height:1.8;font-size:18px}
+.big{font-size:78px;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px) rotate(3deg)}}
+
+button{
+  border:0;
+  cursor:pointer;
+  font-family:inherit;
+  color:white;
+  background:linear-gradient(135deg,#ff6eaa,#8b74ed);
+  box-shadow:0 12px 30px rgba(100,65,140,.22);
+  transition:.25s;
+}
+button:hover{transform:translateY(-3px) scale(1.03)}
+button:active{transform:scale(.97)}
+.primary{padding:15px 28px;border-radius:999px;font-size:16px}
+
+.music{
+  position:fixed;
+  right:14px;
+  bottom:14px;
+  z-index:20;
+  padding:11px 17px;
+  border-radius:999px;
+  font-size:14px;
+}
+
+.glass{
+  width:min(780px,94vw);
+  padding:34px 24px;
+  border-radius:32px;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(255,255,255,.78);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 22px 70px rgba(75,50,100,.16);
+}
+.glass.wide{width:min(1050px,95vw)}
+.glass h2{font-size:clamp(28px,7vw,39px);margin:14px 0 22px}
+.glass p{font-size:17px;line-height:1.85}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:17px;
+  margin-top:28px;
+}
+.card{
+  padding:24px 15px;
+  border-radius:24px;
+  background:rgba(255,255,255,.43);
+  border:1px solid rgba(255,255,255,.75);
+  transition:.3s;
+}
+.card:hover{transform:translateY(-8px)}
+.card .e{font-size:48px;margin-bottom:12px}
+.card h3{font-size:20px;margin-bottom:9px}
+.card p{font-size:15px;line-height:1.6}
+
+.gift{
+  display:block;
+  margin:25px auto 0;
+  padding:15px;
+  border-radius:28px;
+  font-size:85px;
+  background:rgba(255,255,255,.38);
+  box-shadow:none;
+  animation:gift 1.5s ease-in-out infinite;
+}
+@keyframes gift{50%{transform:translateY(-10px) rotate(3deg)}}
+.secret{display:none;margin-top:25px}
+.secret.show{display:block;animation:appear .7s ease}
+@keyframes appear{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+
+.end h1{font-size:clamp(42px,11vw,75px);margin:15px 0 25px}
+.end p{max-width:650px;font-size:19px;line-height:1.9}
+.final{font-size:28px;margin-top:28px}
+
+.star{
+  position:absolute;
+  color:white;
+  text-shadow:0 0 12px white;
+  font-size:18px;
+  animation:twinkle 2s ease-in-out infinite alternate;
+}
+@keyframes twinkle{to{opacity:.2;transform:scale(.55) rotate(20deg)}}
+
+.fly{
+  position:absolute;
+  font-size:28px;
+  animation:fly 15s linear infinite;
+}
+@keyframes fly{
+  0%{transform:translate(-10vw,110vh) rotate(0)}
+  25%{transform:translate(25vw,70vh) rotate(12deg)}
+  50%{transform:translate(65vw,45vh) rotate(-10deg)}
+  75%{transform:translate(30vw,15vh) rotate(10deg)}
+  100%{transform:translate(110vw,-10vh) rotate(-10deg)}
+}
+.petal{
+  position:absolute;
+  top:-40px;
+  font-size:20px;
+  animation:fall linear forwards;
+}
+@keyframes fall{to{transform:translateY(115vh) rotate(360deg)}}
+
+.heart{
+  position:fixed;
+  bottom:-30px;
+  z-index:30;
+  font-size:23px;
+  animation:heart 4s linear forwards;
+}
+@keyframes heart{
+  to{transform:translateY(-110vh) scale(1.5);opacity:0}
+}
+
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:75px;
+  transform:translateX(-50%) translateY(20px);
+  z-index:50;
+  padding:12px 18px;
+  border-radius:999px;
+  color:white;
+  background:rgba(80,55,90,.82);
+  opacity:0;
+  pointer-events:none;
+  transition:.35s;
+  white-space:nowrap;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:700px){
+  .cards{grid-template-columns:1fr 1fr}
+}
+@media(max-width:430px){
+  .cards{grid-template-columns:1fr}
+  .glass{padding:29px 19px}
+  .glass p{font-size:16px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="decor"></div>
+
+<!-- Put Hey Shona.mp3 in the SAME folder as this index.html -->
+<audio id="music" loop preload="metadata">
+  <source src="Hey Shona.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music" id="musicBtn">🎵 Music</button>
+<div id="toast"></div>
+
+<main>
+
+<section class="hero">
+  <div class="big">🦋</div>
+  <p class="eyebrow">I made something for you...</p>
+  <h1>Hey, You 🤍</h1>
+  <h2>I know you're mad at me.</h2>
+  <p class="lead">
+    So instead of sending another long paragraph,<br>
+    I thought I'd make you something.
+  </p>
+  <button class="primary" id="start">Okay... show me 🥺</button>
+</section>
+
+<section>
+  <div class="glass">
+    <div class="big">🥺</div>
+    <h2>I'm Sorry.</h2>
+    <p>
+      Not the “sorry, but...” kind.<br><br>
+      Just <b>sorry.</b><br><br>
+      I know I messed up, and I know saying sorry doesn't instantly
+      make everything okay.<br><br>
+      I wish I had handled things differently.<br><br>
+      You didn't deserve to be hurt because of my frustration.<br><br>
+      I genuinely am sorry. 🤍
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="glass wide">
+    <div class="big">🌸</div>
+    <h2>A Few Things I Want You To Know</h2>
+
+    <div class="cards">
+      <div class="card">
+        <div class="e">🥺</div>
+        <h3>I Know</h3>
+        <p>You're upset, and I understand why. I'm not going to pretend everything is suddenly okay.</p>
+      </div>
+
+      <div class="card">
+        <div class="e">🫂</div>
+        <h3>I'm Sorry</h3>
+        <p>I really mean it. I should have handled things better.</p>
+      </div>
+
+      <div class="card">
+        <div class="e">🌷</div>
+        <h3>You Matter</h3>
+        <p>Maybe more than I've ever properly managed to say.</p>
+      </div>
+
+      <div class="card">
+        <div class="e">🦋</div>
+        <h3>No Pressure</h3>
+        <p>You don't have to forgive me immediately. Take your time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="glass">
+    <div class="big">💗</div>
+    <h2>There's Something Else...</h2>
+    <p>
+      I don't know exactly when it happened.<br><br>
+      Somewhere between the random conversations, laughs, little moments
+      and everything in between...<br><br>
+      <b>you became special to me.</b><br><br>
+      Maybe you're more than just a friend to me.<br><br>
+      Maybe I'm not ready to give that feeling a proper name.<br><br>
+      Maybe it doesn't need a name yet.<br><br>
+      I just know...<br><br>
+      <b>I care about you. 🤍</b>
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="glass">
+    <div class="big">🎁</div>
+    <h2>One Little Surprise</h2>
+    <p>There's something hidden inside.</p>
+
+    <button class="gift" id="gift">🎁</button>
+
+    <div class="secret" id="secret">
+      <p>
+        I can't undo what happened.<br><br>
+        But I can learn from it.<br><br>
+        And if I ever get another chance, I'll try to handle things better.<br><br>
+        <b>You deserve that.</b> 🤍
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="end">
+  <div class="big">🦋</div>
+  <h1>One Last Thing...</h1>
+  <p>
+    You don't have to forgive me right now.<br><br>
+    You don't have to reply immediately.<br><br>
+    Take your time.<br><br>
+    I just hope that whenever you're ready, we can smile again.<br><br>
+    Because despite everything...<br><br>
+    <b>I'm really glad I met you.</b> 🤍
+  </p>
+  <div class="final">🦋 ✨ 🌸 🫶 ✨ 🦋</div>
+</section>
+
+</main>
+
+<script>
+const decor=document.getElementById("decor");
+const music=document.getElementById("music");
+const musicBtn=document.getElementById("musicBtn");
+const toast=document.getElementById("toast");
+
+function showToast(text){
+  toast.textContent=text;
+  toast.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>toast.classList.remove("show"),2200);
+}
+
+/* Stars */
+for(let i=0;i<55;i++){
+  const s=document.createElement("span");
+  s.className="star";
+  s.textContent="✦";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*100+"%";
+  s.style.animationDelay=Math.random()*3+"s";
+  decor.appendChild(s);
+}
+
+/* Butterflies */
+for(let i=0;i<8;i++){
+  const b=document.createElement("span");
+  b.className="fly";
+  b.textContent=i%4===0?"✨":"🦋";
+  b.style.left=Math.random()*100+"%";
+  b.style.animationDuration=(12+Math.random()*10)+"s";
+  b.style.animationDelay=(-Math.random()*15)+"s";
+  decor.appendChild(b);
+}
+
+/* Falling flowers */
+const flowers=["🌸","🌷","🌼","✨"];
+function makePetal(){
+  const p=document.createElement("span");
+  p.className="petal";
+  p.textContent=flowers[Math.floor(Math.random()*flowers.length)];
+  p.style.left=Math.random()*100+"%";
+  p.style.animationDuration=(5+Math.random()*5)+"s";
+  decor.appendChild(p);
+  setTimeout(()=>p.remove(),10000);
+}
+setInterval(makePetal,850);
+
+/* Hearts */
+function hearts(){
+  const types=["🤍","💗","💖","🦋","✨"];
+  for(let i=0;i<16;i++){
+    setTimeout(()=>{
+      const h=document.createElement("span");
+      h.className="heart";
+      h.textContent=types[Math.floor(Math.random()*types.length)];
+      h.style.left=Math.random()*100+"vw";
+      h.style.animationDuration=(3+Math.random()*2)+"s";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),5500);
+    },i*90);
+  }
+}
+
+/* Start */
+document.getElementById("start").addEventListener("click",()=>{
+  music.play().then(()=>{
+    musicBtn.textContent="🔊 Music";
+  }).catch(()=>{
+    showToast("Tap 🎵 Music to start the song");
+  });
+
+  hearts();
+
+  document.querySelectorAll("section")[1].scrollIntoView({
+    behavior:"smooth"
+  });
+});
+
+/* Music */
+musicBtn.addEventListener("click",()=>{
+  if(music.paused){
+    music.play().then(()=>{
+      musicBtn.textContent="🔊 Music";
+    }).catch(()=>{
+      showToast("Make sure Hey Shona.mp3 is uploaded");
+    });
+  }else{
+    music.pause();
+    musicBtn.textContent="🔇 Music";
+  }
+});
+
+/* Gift */
+document.getElementById("gift").addEventListener("click",()=>{
+  document.getElementById("secret").classList.add("show");
+  document.getElementById("gift").textContent="💝";
+  hearts();
+});
+</script>
+
+</body>
+</html>
